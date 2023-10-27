@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer of Products API</title>
+    <link rel="stylesheet" href="./produtos.css">
+</head>
+    
+    <div class="wrapper">
+    <div id="productsDiv"></div>
+
+    <button id="btnExibiTodosProdutos">Exibir todos os produtos</button>
+
+    Digite o ID do produto: <input type="number" placeholder="Digita um numero por favor" id="inputDoUsuario">
+    <button id="btn">Clique por favor</button>
+
+
+    Digite seu produto favorito: <input type="text" placeholder="Sua pesquisa" id="pesquisaDoUsuario">
+    <button id="btnSearch">Clique por favor</button>
+    </div>
+
+    </hr>
+
+    <h1 class="title">AQUI TEMOS OS DADOS CARREGADAS DO SPRING BOOT</h1>
+
+    <div id="cards"></div>
+
+
+    <!-------------------------------------------->
+
+
+    <script>
+
+        //Function for show up all products through my api that i make it on the spring boot
+        const produtosDiv = document.getElementById("productsDiv");
+
+        let btnExibiTodosProdutos = document.getElementById("btnExibiTodosProdutos");
+
+        btnExibiTodosProdutos.addEventListener("click", () => {
+            const PRODUTOS_URL = "http://localhost:9191/produtos"; 
+
+
+        fetch(PRODUTOS_URL)
+            .then((data) => { return data.json(); 
+            }).then((completeData) => {
+                completeData.map((values) => {
+                    let novosProdutos = values.products;
+                    console.log(novosProdutos);
+                    let data1 = "";
+                    novosProdutos.map((produto) => {
+                        let arrayDeImagens = produto.images[0]
+                        console.log(produto.title);
+                        data1 += `<div class="card">
+                            <h1 class="title">${produto.title}</h1>
+                            <img src=${arrayDeImagens} width="350" height="350" alt="img" class="images">
+                            <p class="description">Description: ${produto.description}</p>
+                            <p class="price">Price: ${produto.price}</p>
+                            <p class="discountPercentage">Discount Percentage: ${produto.discountPercentage}</p>
+                            <p class="rating">Rating: ${produto.rating}</p>
+                            <p class="stock">Stock: ${produto.stock}</p>
+                            <p class="brand">Brand: ${produto.brand}</p>
+                            <p class="category">Category: ${produto.category}</p>
+                        </div>
+                        `
+                })
+                document.getElementById("cards").innerHTML = data1;
+                })
+            }).catch((err) => {
+                console.log(err);
+            })      
+        })
+       
+                    
+                
+
+        let myButton = document.getElementById("btn");
+        myButton.addEventListener("click", () => {
+            let inputDoUsuario = document.getElementById("inputDoUsuario").value; 
+            let PRODUTO_ID = `http://localhost:9191/produtos/${inputDoUsuario}`; 
+            fetch(PRODUTO_ID)
+                    .then((data) => { return data.json();
+                    }).then((completeData) => {
+                            console.log(completeData);
+                            let data1 = "";
+                            completeData.map((produto) => {
+                            let arrayDeImagens = produto.images[0];
+                            console.log(produto.title);
+                            data1 += `<div class="card">
+                            <h1 class="title">${produto.title}</h1>
+                            <img src=${arrayDeImagens} width="350" height="350" alt="img" class="images">
+                            <p class="description">Description: ${produto.description}</p>
+                            <p class="price">Price: ${produto.price}</p>
+                            <p class="discountPercentage">Discount Percentage: ${produto.discountPercentage}</p>
+                            <p class="rating">Rating: ${produto.rating}</p>
+                            <p class="stock">Stock: ${produto.stock}</p>
+                            <p class="brand">Brand: ${produto.brand}</p>
+                            <p class="category">Category: ${produto.category}</p>
+                            </div>
+                            `
+                        })
+                        document.getElementById("cards").innerHTML = data1;
+                    })
+        })
+
+
+        
+        let btnPesquisar = document.getElementById("btnSearch");
+        
+        btnPesquisar.addEventListener("click", () => {
+            let pesquisaDoUsuario = document.getElementById("pesquisaDoUsuario").value;
+            let PRODUTO_SEARCH = `http://localhost:9191/produtos/search/${pesquisaDoUsuario}`; 
+            fetch(PRODUTO_SEARCH)
+                .then((data) => { return data.json(); 
+                }).then((completeData) => {
+                    console.log(completeData);
+                    let data1 = "";
+                    completeData.map((produto) => {
+                        let produtos = produto.products;
+                        produtos.map((produto) => {
+                            console.log(produto.title);
+                            let arrayDeImagens = produto.images[0];
+                            console.log(arrayDeImagens);
+
+                            data1 += `<div class="card">
+                            <h1 class="title">${produto.title}</h1>
+                            <img src=${arrayDeImagens} width="350" height="350" alt="img" class="images">
+                            <p class="description">Description: ${produto.description}</p>
+                            <p class="price">Price: ${produto.price}</p>
+                            <p class="discountPercentage">Discount Percentage: ${produto.discountPercentage}</p>
+                            <p class="rating">Rating: ${produto.rating}</p>
+                            <p class="stock">Stock: ${produto.stock}</p>
+                            <p class="brand">Brand: ${produto.brand}</p>
+                            <p class="category">Category: ${produto.category}</p>
+                            </div>
+                            `
+                        })
+                        document.getElementById("cards").innerHTML = data1;
+
+                    })
+                })
+
+        })
+
+
+
+
+
+    </script>
+</body>
+</html>

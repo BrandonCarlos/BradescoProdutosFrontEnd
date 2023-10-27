@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    text-align: center;
+    margin: 2rem 2rem;
+}
+
+#btnExibiTodosProdutos {
+    font-size: 1rem;
+    background: green;
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+
+#pesquisaDoUsuario, #inputDoUsuario {
+    padding: .5rem;
+    border-radius: .3rem;
+}
+
+#btn, #btnSearch {
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
+.title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    margin-top: 2.5rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+#cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 23%;
+    box-shadow: 0 0 4px 3px rgb(85, 85, 143);
+    text-align: center;
+    padding: 1.5em;
+    margin-bottom: 2em;
+}
+
+.title {
+    font-size: 1.3rem;
+}
+
+.category, .price {
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 1em;
+}
+
+.description {
+    margin-top: .5rem;
+}
